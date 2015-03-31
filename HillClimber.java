@@ -1,4 +1,4 @@
-public static class HillClimber
+public class HillClimber
 {
 	
 	char [] solution = new char[32];
@@ -10,7 +10,7 @@ public static class HillClimber
 	
 	public char [] generateInitRandomSolution()
 	{
-		
+		return null;
 	}
 	
 	public void neighbourhood()
@@ -19,6 +19,6 @@ public static class HillClimber
 	}
 	public char [] nextSolution(char [] neighbour)
 	{
-		
+		return null;
 	}
 }

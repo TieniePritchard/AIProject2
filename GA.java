@@ -1,4 +1,4 @@
-public static class GA
+public class GA
 {
 	int G = 0;
 	char [] chromosome = new char[32];
@@ -18,34 +18,34 @@ public static class GA
 	//Selection Strategies
 	public char [] randomSelection()
 	{
-		
+		return null;
 	}
 	
 	public char [] tournament()
 	{
-		
+		return null;
 	}
 	
 	public char [] proportional()
 	{
-		
+		return null;
 	}
 	public char [] rankBased()
 	{
-		
+		return null;
 	}
 	
 
 	//Crossover Strategy
 	public char [] OnePointCrossover()
 	{
-		
+		return null;
 	}
 	
 	//Mutation
 	public char[] applyMutation(char [] chrom)
 	{
-		
+		return null;
 	}
 	
 	
@@ -53,14 +53,14 @@ public static class GA
 	
 	public char[] createAndInitRandomPopulation()
 	{
-		
+		return null;
 	}
 	
 	
 	
 	public char [] determineNextPopulation(boolean elitism, char [] pg1, char [] o)
 	{
-		
+		return null;
 	}
 	
 	public int incrementGenerationCounter(int g)
@@ -75,7 +75,7 @@ public static class GA
 	
 	public int calculateFitness(char [] chrom)
 	{
-		
+		return 0;
 	}
 	
 }

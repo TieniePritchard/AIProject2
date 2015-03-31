@@ -1,4 +1,4 @@
-public static class Trader
+public class Trader
 {
 	char [] trader = new char[32];
 	float money = 100000;
@@ -19,6 +19,7 @@ public static class Trader
 		closing price had on the chart but not the current day's) each trader has a corresponding decision
 		of whether to buy stock, sell stock or hold
 		*/
+		return 0;
 	}
 	
 	/*
@@ -41,16 +42,16 @@ public static class Trader
 
 	public float buyStock()
 	{
-		
+		return 0;
 	}
 	/*Every time the trader makes a sell decision all shares on hand must be sold*/
 	public float sellStock()
 	{
-		
+		return 0;
 	}
 	public float holdStock()
 	{
-		
+		return 0;
 	}
 	
 	public int increaseShares(int s)
@@ -68,15 +69,18 @@ public static class Trader
 		/*Calculated as: cash + (num_stocks x current price)
 		The closing price on the final trading day should be used in this calculation (i.e. current price)
 		*/
+		return 0;
 	}
 	
-	public float fees(float tradeAmount, boolean buy)
+	public double fees(float tradeAmount, boolean buy)
 	{
+		double STT = 0;
 		if(buy)
-			float STT = tradeAmount * .25;
-		float Brokerage = tradeAmount * 0.5;
-		float STRATE = 11.58;
-		float IPL = tradeAmount * .0002;
-		float VAT = 0.14 * (STT + Brokerage + STRATE + IPL);
+			STT = tradeAmount * .25;
+		double Brokerage = tradeAmount * 0.5;
+		double STRATE = 11.58;
+		double IPL = tradeAmount * .0002;
+		double VAT = 0.14 * (STT + Brokerage + STRATE + IPL);
+		return 0;
 	}
 }
