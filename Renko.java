@@ -2,7 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Date;
+import java.text.SimpleDateFormat;
 public class Renko
 {
 	/*	
@@ -11,11 +12,16 @@ public class Renko
 		This is a percentage of the range of stock values for a particular stock.
 	*/
 	double boxSize;
-	int [] RenkoChart = new int [32*5];
+	ArrayList<Brick> RenkoData;
 	public Renko(String file)
 	{
 		boxSize = determineRangeOfClosingValues(file);
 		generateRenkoData(file);
+	}
+	
+	public ArrayList<Brick> getRenkoData()
+	{
+		return RenkoData;
 	}
 	
 	/*For each datafile, determine the range of closing price values.*/
@@ -51,45 +57,58 @@ public class Renko
 		which map to these bricks.
 		Renko Data will consist of appending 0s and 1s (Up and Down) next to each other
 	*/
-	public int [] generateRenkoData(String f)
+	public void generateRenkoData(String f)
 	{
-		ArrayList<Integer> Renko = new ArrayList<Integer>();
-		//Maximum Closing Price - Minimum Closing Price
-		ArrayList<String> file = openFileForReading(f);
-		//printFileContent(file);
-		double currentDay = 0;
-		double oldDay;
-		for(int i = 0; i < file.size()-1; i++)
+		try
 		{
-			
-			String [] line = (file.get(i)).split("\t");
-			double closing = Double.parseDouble(line[1]);
-			oldDay = currentDay;
-			currentDay = closing;
-			double difference = currentDay - oldDay;
-			if(i == 0)
-				continue;
-			if(Math.abs(difference) >= boxSize)
+			ArrayList<Brick> Renko = new ArrayList<Brick>();
+			//Maximum Closing Price - Minimum Closing Price
+			ArrayList<String> file = openFileForReading(f);
+			//printFileContent(file);
+			double currentDay = 0;
+			double oldDay;
+			for(int i = 0; i < file.size()-1; i++)
 			{
-				if(difference >= 0)
-					Renko.add(1);
-				else Renko.add(0);
+				
+				String [] line = (file.get(i)).split("\t");
+				double closing = Double.parseDouble(line[1]);
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				Date date = formatter.parse(line[0]);
+				double High = Double.parseDouble(line[2]);
+				double Low = Double.parseDouble(line[3]);
+				oldDay = currentDay;
+				currentDay = closing;
+				double difference = currentDay - oldDay;
+				if(i == 0)
+					continue;
+				if(Math.abs(difference) >= boxSize)
+				{
+					if(difference >= 0)
+						Renko.add(new Brick(true, date, closing, High, Low));
+					else Renko.add(new Brick(false, date, closing, High, Low));
+				}
+				
 			}
-			
+			RenkoData = Renko;
 		}
-		displayRenkoData(Renko);
-		return null;
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
-	public void displayRenkoData(ArrayList<Integer> renk)
+	public void displayRenkoData(ArrayList<Brick> renk)
 	{
 		for(int i = 0; i < renk.size(); i++)
 		{
-			if(i % 5 == 0)
-				System.out.print(" ");
-			System.out.print(renk.get(i));
+			System.out.print((renk.get(i)).up + "\t");
+			System.out.print((renk.get(i)).date + "\t");
+			System.out.print((renk.get(i)).closingPrice + "\t");
+			System.out.print((renk.get(i)).HighPrice + "\t");
+			System.out.print((renk.get(i)).LowPrice);
+			System.out.println();
 		}
-		System.out.println();
+		
 	}
 	public void printFileContent(ArrayList<String> file)
 	{
